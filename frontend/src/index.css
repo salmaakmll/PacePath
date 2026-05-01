@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --color-primary: #5243e8;
+  --color-primary-dark: #4335c7;
+  --color-primary-light: #eef2ff;
+  --color-surface-card: #ffffff;
+  --color-surface-bg: #f8f9fc;
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+}
+
+@layer base {
+  body {
+    @apply antialiased text-slate-800 bg-[#f8f9fc];
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-bold py-3 px-8 rounded-xl transition-all hover:bg-primary-dark active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-indigo-100;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-slate-700 font-bold py-3 px-8 rounded-xl border border-slate-200 transition-all hover:bg-slate-50 active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  .card {
+    @apply bg-white rounded-[2rem] border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.03)];
+  }
+
+  .input-field {
+    @apply w-full px-5 py-4 bg-[#f8f9fc] border border-slate-200 rounded-2xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-slate-400;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 rounded-[2rem] shadow-xl;
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
