@@ -5,6 +5,7 @@ const SkillTag = ({ label, onRemove }) => {
     <div className="flex items-center bg-white border border-slate-100 text-primary px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm group">
       <span>{label}</span>
       <button 
+        type="button"
         onClick={() => onRemove(label)}
         className="ml-2.5 text-slate-400 hover:text-red-500 transition-colors"
       >

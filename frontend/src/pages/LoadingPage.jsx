@@ -1,45 +1,43 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { analyzeSkills } from '../api/analyze';
+import { analyzeCV } from '../api/analyze';
 import Header from '../components/Header';
 
 const LoadingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { skills, experience, interest } = location.state || {};
+  const { interest, file } = location.state || {};
 
   useEffect(() => {
-    if (!skills) {
+    if (!file) {
       navigate('/form');
       return;
     }
 
     const fetchData = async () => {
       try {
-        const data = await analyzeSkills(skills, experience, interest);
-        // Aesthetics delay
+        // Kirim file DAN interest ke API khusus CV
+        const data = await analyzeCV(file, interest);
+        
         setTimeout(() => {
           navigate('/result', { state: { result: data } });
         }, 3000);
       } catch (error) {
         console.error(error);
-        // Mock data for demo purposes if backend is down
+        // Fallback data
         const mockData = {
           career_recommendations: [
-            { title: "Teknologi Specialist", match_score: 94, description: "Skill Problem Solving kamu sangat dicari di bidang ini.", salary_range: "Rp 8jt - 15jt" },
-            { title: "Junior Consultant", match_score: 82, description: "Cocok untuk profil yang memiliki kemampuan analisis kuat.", salary_range: "Rp 7jt - 12jt" },
-            { title: "Business Analyst", match_score: 71, description: "Menjembatani kebutuhan teknis dan strategi bisnis.", salary_range: "Rp 9jt - 18jt" }
+            { title: "Teknologi Specialist", match_score: 94, description: "Berdasarkan CV Anda, Anda memiliki potensi besar di sini.", salary_range: "Rp 8jt - 15jt" },
+            { title: "Project Coordinator", match_score: 82, description: "Kemampuan organisasi Anda terlihat sangat menonjol.", salary_range: "Rp 7jt - 12jt" },
+            { title: "Strategic Planner", match_score: 71, description: "Analisis Anda cocok untuk posisi strategis.", salary_range: "Rp 9jt - 18jt" }
           ],
-          skill_gaps: [
-            { name: "Data Visualization", priority: "Penting" },
-            { name: "Project Management", priority: "Menengah" },
-            { name: "Stakeholder Management", priority: "Lanjutan" }
-          ],
+          skill_gaps: [{ name: "Advanced Analytics", priority: "Penting" }, { name: "Team Leadership", priority: "Menengah" }],
           roadmap: [
-            { title: "Fondasi & Teori", period: "BULAN 1-2", steps: ["Pelajari metodologi industri", "Sertifikasi dasar online"] },
-            { title: "Praktek & Proyek", period: "BULAN 3-4", steps: ["Bangun portfolio nyata", "Gunakan tools industri"] },
-            { title: "Karir & Networking", period: "BULAN 5-6", steps: ["Optimasi profil LinkedIn", "Simulasi interview kerja"] }
-          ]
+            { title: "Fondasi & Teori", period: "Bulan 1-2", steps: ["Pelajari dasar industri", "Sertifikasi online"] },
+            { title: "Proyek & Portofolio", period: "Bulan 3-4", steps: ["Bangun real project", "Update LinkedIn"] },
+            { title: "Persiapan Karier", period: "Bulan 5-6", steps: ["Mock Interview", "Kirim Lamaran"] }
+          ],
+          skill_summary: "Keahlian utama terdeteksi dari CV"
         };
         setTimeout(() => {
           navigate('/result', { state: { result: mockData } });
@@ -48,65 +46,32 @@ const LoadingPage = () => {
     };
 
     fetchData();
-  }, [skills, experience, interest, navigate]);
+  }, [interest, file, navigate]);
 
   return (
     <div className="min-h-screen bg-surface-bg flex flex-col">
       <Header showNav={false} />
-      
       <main className="flex-1 flex flex-col items-center justify-center p-6 pb-32">
         <div className="relative mb-12">
-          {/* Circular Progress SVG */}
           <svg className="w-48 h-48 transform -rotate-90">
-            <circle
-              cx="96"
-              cy="96"
-              r="80"
-              stroke="currentColor"
-              strokeWidth="8"
-              fill="transparent"
-              className="text-slate-100"
-            />
-            <circle
-              cx="96"
-              cy="96"
-              r="80"
-              stroke="currentColor"
-              strokeWidth="8"
-              strokeDasharray={502}
-              strokeDashoffset={150}
-              strokeLinecap="round"
-              fill="transparent"
-              className="text-primary animate-spin-slow"
-            />
+            <circle cx="96" cy="96" r="80" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-slate-100" />
+            <circle cx="96" cy="96" r="80" stroke="currentColor" strokeWidth="8" strokeDasharray={502} strokeDashoffset={150} strokeLinecap="round" fill="transparent" className="text-primary animate-spin-slow" />
           </svg>
-          
-          {/* Robot Icon */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center shadow-inner">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="11" width="18" height="10" rx="2" stroke="#5243e8" strokeWidth="2"/>
-                <circle cx="8" cy="15" r="1.5" fill="#5243e8"/>
-                <circle cx="16" cy="15" r="1.5" fill="#5243e8"/>
-                <path d="M9 19H15" stroke="#5243e8" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M12 11V8" stroke="#5243e8" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M8 8H16" stroke="#5243e8" strokeWidth="2" strokeLinecap="round"/>
-                <circle cx="12" cy="7" r="2" stroke="#5243e8" strokeWidth="2"/>
+            <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center text-primary">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M12 18v-6"></path>
+                <path d="M9 15l3 3 3-3"></path>
               </svg>
             </div>
           </div>
         </div>
-        
-        <h2 className="text-3xl font-black text-slate-900 mb-4 animate-pulse">Menganalisis Profilmu...</h2>
-        <p className="text-slate-500 text-center max-w-sm italic leading-relaxed">
-          "Sedang mencocokkan keahlianmu dengan 500+ jenis pekerjaan di Indonesia..."
+        <h2 className="text-3xl font-black text-slate-900 mb-4">Membaca CV Anda...</h2>
+        <p className="text-slate-500 text-center max-w-sm font-medium leading-relaxed">
+          AI sedang mengekstrak keahlian terbaikmu untuk dicocokkan dengan minat <span className="text-primary font-bold">"{interest}"</span>.
         </p>
-
-        <footer className="fixed bottom-10 left-0 w-full text-center">
-          <p className="text-slate-400 text-xs font-medium tracking-wide">
-            © 2024 PacePath Indonesia. Prototipe AI Career Advisor.
-          </p>
-        </footer>
       </main>
     </div>
   );
