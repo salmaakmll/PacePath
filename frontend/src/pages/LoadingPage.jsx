@@ -53,7 +53,7 @@ const LoadingPage = () => {
   return (
     <div className="min-h-screen bg-surface-bg flex flex-col">
       <Header showNav={false} />
-      
+
       <main className="flex-1 flex flex-col items-center justify-center p-6 pb-32">
         <div className="relative mb-12">
           {/* Circular Progress SVG */}
@@ -80,23 +80,23 @@ const LoadingPage = () => {
               className="text-primary animate-spin-slow"
             />
           </svg>
-          
+
           {/* Robot Icon */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center shadow-inner">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="11" width="18" height="10" rx="2" stroke="#5243e8" strokeWidth="2"/>
-                <circle cx="8" cy="15" r="1.5" fill="#5243e8"/>
-                <circle cx="16" cy="15" r="1.5" fill="#5243e8"/>
-                <path d="M9 19H15" stroke="#5243e8" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M12 11V8" stroke="#5243e8" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M8 8H16" stroke="#5243e8" strokeWidth="2" strokeLinecap="round"/>
-                <circle cx="12" cy="7" r="2" stroke="#5243e8" strokeWidth="2"/>
+                <rect x="3" y="11" width="18" height="10" rx="2" stroke="#5243e8" strokeWidth="2" />
+                <circle cx="8" cy="15" r="1.5" fill="#5243e8" />
+                <circle cx="16" cy="15" r="1.5" fill="#5243e8" />
+                <path d="M9 19H15" stroke="#5243e8" strokeWidth="2" strokeLinecap="round" />
+                <path d="M12 11V8" stroke="#5243e8" strokeWidth="2" strokeLinecap="round" />
+                <path d="M8 8H16" stroke="#5243e8" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="12" cy="7" r="2" stroke="#5243e8" strokeWidth="2" />
               </svg>
             </div>
           </div>
         </div>
-        
+
         <h2 className="text-3xl font-black text-slate-900 mb-4 animate-pulse">Menganalisis Profilmu...</h2>
         <p className="text-slate-500 text-center max-w-sm italic leading-relaxed">
           "Sedang mencocokkan keahlianmu dengan 500+ jenis pekerjaan di Indonesia..."

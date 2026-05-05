@@ -12,6 +12,8 @@ app = FastAPI(title="PacePath Backend API")
 origins = [
     settings.frontend_url,
     "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
     "https://pacepath.vercel.app"
 ]
 
@@ -37,8 +39,9 @@ def analyze_skills(request: AnalyzeRequest):
             interest=request.interest
         )
         
-        # FastAPI/Pydantic akan otomatis memvalidasi apakah response_data
-        # sesuai dengan skema AnalyzeResponse.
+        # Tambahkan analyzed_skills agar frontend bisa menampilkan apa yang diinput
+        recommendation_data["analyzed_skills"] = request.skills
+        
         return AnalyzeResponse(**recommendation_data)
         
     except ValueError as ve:

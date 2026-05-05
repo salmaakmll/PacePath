@@ -1,7 +1,7 @@
 import google.generativeai as genai
 import json
 from config import get_settings
-from prompts import build_career_prompt
+from prompts import build_career_prompt, build_cv_analysis_prompt
 
 settings = get_settings()
 

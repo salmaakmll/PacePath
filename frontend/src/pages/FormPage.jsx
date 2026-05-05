@@ -14,10 +14,13 @@ const FormPage = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && inputValue.trim()) {
+      e.preventDefault(); // Prevent form submission
       if (!skills.includes(inputValue.trim())) {
         setSkills([...skills, inputValue.trim()]);
       }
       setInputValue('');
+    } else if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent submission even if input is empty
     }
   };
 
