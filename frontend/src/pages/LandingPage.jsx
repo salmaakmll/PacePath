@@ -6,23 +6,26 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-surface-bg flex flex-col">
+    <div className="h-screen overflow-hidden bg-surface-bg flex flex-col">
       <Header />
 
-      <main className="flex-1 max-w-7xl mx-auto px-6 pt-12 pb-24 flex flex-col items-center text-center">
-        {/* Floating Sparkle Icon */}
-        <div className="mb-12 w-24 h-24 bg-[#eef2ff] rounded-[2.5rem] flex items-center justify-center shadow-sm animate-float">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3L14.5 9L21 11.5L14.5 14L12 20L9.5 14L3 11.5L9.5 9L12 3Z" stroke="#5243e8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M18 16L19 19L22 20L19 21L18 24L17 21L14 20L17 19L18 16Z" fill="#5243e8" />
-          </svg>
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 flex flex-col justify-center items-center text-center relative">
+        
+        <div className="relative mb-6">
+          {/* Glow Effect moved to be around the badge */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#99acff] rounded-full blur-3xl opacity-60 z-0 pointer-events-none"></div>
+          
+          {/* Badge */}
+          <div className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-white/60 border border-slate-200/60 shadow-sm backdrop-blur-sm relative z-10">
+            <div className="w-2 h-2 rounded-full bg-primary"></div>
+            <span className="text-sm font-bold text-slate-700">AI-Powered Career Advisor</span>
+          </div>
         </div>
 
-        <h1 className="text-5xl md:text-[5.5rem] font-black text-slate-900 mb-8 leading-[1.05] tracking-tight">
+        <h1 className="text-5xl md:text-[5.5rem] font-black text-slate-900 mb-8 leading-[1.05] tracking-tight relative z-10">
           Temukan Jalur Karier <br />
-          <span className="text-primary relative inline-block">
+          <span className="text-[#2563EB]">
             Terbaikmu
-            <span className="absolute -bottom-2 left-0 w-full h-4 bg-primary/10 -z-10 rounded-full"></span>
           </span> dengan AI
         </h1>
 
@@ -38,10 +41,10 @@ const LandingPage = () => {
         </button>
 
         {/* Features / Stats */}
-        <div className="mt-24 flex flex-wrap justify-center gap-12">
+        <div className="mt-8 flex flex-wrap justify-center gap-8 md:gap-12">
           {[
             {
-              label: '100+ Roles',
+              label: 'Roles',
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>

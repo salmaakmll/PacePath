@@ -10,7 +10,6 @@ const ResultPage = () => {
   const navigate = useNavigate();
   const { result } = location.state || {};
 
-  // Mock data for fallback
   const finalResult = result || {
     career_recommendations: [
       { title: "Teknologi Specialist", match_score: 94, description: "Skill Problem Solving kamu sangat dicari di bidang ini.", salary_range: "Rp 8jt - 15jt", iconType: 'star' },
@@ -35,7 +34,6 @@ const ResultPage = () => {
       <Header />
       
       <main className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full">
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
           <div>
             <h1 className="text-4xl font-black text-slate-900 mb-2">Rekomendasi Karir</h1>
@@ -73,10 +71,8 @@ const ResultPage = () => {
             />
           ))}
         </div>
-
-        {/* Bottom Details */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Skill Gaps Section */}
           <section className="space-y-8">
             <div className="flex items-center space-x-4">
               <div className="w-10 h-10 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center">
@@ -100,7 +96,6 @@ const ResultPage = () => {
             </div>
           </section>
 
-          {/* Roadmap Section */}
           <section className="space-y-8">
             <div className="flex items-center space-x-4">
               <div className="w-10 h-10 bg-primary/5 text-primary rounded-xl flex items-center justify-center">
@@ -119,7 +114,7 @@ const ResultPage = () => {
       </main>
 
       <footer className="py-12 border-t border-slate-100 mt-20 text-center">
-        <p className="text-slate-400 text-sm font-medium">© 2024 PacePath Indonesia. Semua hak dilindungi.</p>
+        <p className="text-slate-400 text-sm font-medium">© PacePath, Indonesia.</p>
       </footer>
     </div>
   );
