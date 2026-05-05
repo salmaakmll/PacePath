@@ -40,7 +40,7 @@ const ResultPage = () => {
           <div>
             <h1 className="text-4xl font-black text-slate-900 mb-2">Rekomendasi Karir</h1>
             <p className="text-slate-500 font-medium">
-              Berdasarkan keahlian: <span className="text-primary font-bold">{(finalResult.analyzed_skills || []).join(', ')}</span>
+              Berdasarkan keahlian: <span className="text-primary font-bold">{finalResult.skill_summary}</span>
             </p>
           </div>
           

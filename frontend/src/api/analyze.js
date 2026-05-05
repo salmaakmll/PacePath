@@ -15,3 +15,20 @@ export const analyzeSkills = async (skills, experience, interest) => {
     throw error;
   }
 };
+export const analyzeCV = async (file, interest) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('interest', interest);
+    
+    const response = await axios.post(`${API_URL}/analyze-cv`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error analyzing CV:', error);
+    throw error;
+  }
+};

@@ -27,4 +27,5 @@ class AnalyzeResponse(BaseModel):
     career_recommendations: List[Career]
     skill_gaps: List[SkillGap]
     roadmap: List[Phase]
-    analyzed_skills: List[str]
+    skill_summary: str
+

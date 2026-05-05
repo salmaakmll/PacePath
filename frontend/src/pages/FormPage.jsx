@@ -1,46 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import SkillTag from '../components/SkillTag';
 
 const FormPage = () => {
   const navigate = useNavigate();
-  const [skills, setSkills] = useState(['Python']);
-  const [inputValue, setInputValue] = useState('');
-  const [experience, setExperience] = useState('Fresh Graduate');
-  const [interest, setInterest] = useState('teknologi');
-
-  const suggestions = ['JavaScript', 'Python', 'Microsoft Excel', 'Public Speaking', 'Graphic Design'];
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
-      e.preventDefault(); // Prevent form submission
-      if (!skills.includes(inputValue.trim())) {
-        setSkills([...skills, inputValue.trim()]);
-      }
-      setInputValue('');
-    } else if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent submission even if input is empty
-    }
-  };
-
-  const removeSkill = (skillToRemove) => {
-    setSkills(skills.filter(s => s !== skillToRemove));
-  };
-
-  const addSkill = (skill) => {
-    if (!skills.includes(skill)) {
-      setSkills([...skills, skill]);
-    }
-  };
+  const [interest, setInterest] = useState('');
+  const [file, setFile] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (skills.length === 0) {
-      alert('Mohon masukkan setidaknya satu skill.');
+    if (!file) {
+      alert('Mohon upload file CV PDF Anda.');
       return;
     }
-    navigate('/loading', { state: { skills, experience, interest } });
+    if (!interest.trim()) {
+      alert('Mohon isi Area Minat agar hasil lebih akurat.');
+      return;
+    }
+    
+    // Kirim file dan interest ke halaman loading
+    navigate('/loading', { state: { interest, file } });
   };
 
   return (
@@ -48,97 +27,71 @@ const FormPage = () => {
       <Header showNav={false} />
       
       <main className="flex-1 flex items-center justify-center p-6 pb-20">
-        <div className="w-full max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="w-full max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
           <div className="bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.03)] border border-slate-100 overflow-hidden">
-            <div className="px-10 pt-12 pb-8">
-              <h1 className="text-3xl font-black text-slate-900 mb-2">Profil Keahlianmu</h1>
-              <p className="text-slate-500 font-medium">Beritahu kami apa yang kamu kuasai dan apa minatmu.</p>
+            <div className="px-10 pt-12 pb-8 text-center">
+              <h1 className="text-3xl font-black text-slate-900 mb-2">Analisis Karier AI</h1>
+              <p className="text-slate-500 font-medium">Upload CV Anda dan beri tahu kami minat karier Anda.</p>
             </div>
             
-            <form onSubmit={handleSubmit} className="px-10 pb-10 space-y-10">
-              {/* Skill Input Section */}
+            <form onSubmit={handleSubmit} className="px-10 pb-10 space-y-8">
+              
+              {/* PDF Upload Area - Mandatory */}
               <div className="space-y-4">
                 <label className="block text-sm font-bold text-slate-900">
-                  Skill yang dimiliki
+                  Upload CV (Wajib PDF)
                 </label>
-                <div className="p-6 bg-[#f8f9fc] border-2 border-dashed border-slate-200 rounded-[1.5rem] min-h-[120px] flex flex-wrap gap-3 items-start transition-all focus-within:border-primary/40">
-                  {skills.map(skill => (
-                    <SkillTag key={skill} label={skill} onRemove={removeSkill} />
-                  ))}
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Ketik skill & tekan Enter..."
-                    className="flex-1 min-w-[150px] bg-transparent border-none outline-none py-2 text-slate-600 font-medium placeholder:text-slate-400"
-                  />
-                </div>
-                
-                <div className="flex flex-wrap items-center gap-2 pt-2">
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-2">Saran:</span>
-                  {suggestions.map(skill => (
-                    <button
-                      key={skill}
-                      type="button"
-                      onClick={() => addSkill(skill)}
-                      className="px-3 py-1 bg-slate-100 hover:bg-primary/10 hover:text-primary text-slate-500 text-xs font-bold rounded-lg transition-all"
-                    >
-                      +{skill}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Two Column Layout for Selects */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <label className="block text-sm font-bold text-slate-900">
-                    Pengalaman Saat Ini
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={experience}
-                      onChange={(e) => setExperience(e.target.value)}
-                      className="w-full px-5 py-4 bg-[#f8f9fc] border border-transparent rounded-2xl focus:bg-white focus:border-primary outline-none transition-all appearance-none font-medium text-slate-700 cursor-pointer"
-                    >
-                      <option>Fresh Graduate</option>
-                      <option>1-2 Tahun</option>
-                      <option>3-5 Tahun</option>
-                      <option>5+ Tahun</option>
-                    </select>
-                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 9l6 6 6-6"></path>
+                <label className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-[2rem] cursor-pointer transition-all ${file ? 'border-primary bg-primary/5' : 'border-slate-200 bg-[#f8f9fc] hover:border-primary/40'}`}>
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <div className={`w-16 h-16 mb-4 rounded-2xl flex items-center justify-center ${file ? 'bg-primary text-white' : 'bg-white text-slate-400 shadow-sm'}`}>
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
                       </svg>
                     </div>
+                    <p className="text-base font-bold text-slate-700">
+                      {file ? file.name : 'Pilih file PDF CV Anda'}
+                    </p>
+                    <p className="text-sm text-slate-400 mt-1">
+                      {file ? 'File siap dianalisis' : 'Drag & drop atau klik untuk mencari'}
+                    </p>
                   </div>
-                </div>
-
-                <div className="space-y-4">
-                  <label className="block text-sm font-bold text-slate-900">
-                    Area Minat (Opsional)
-                  </label>
-                  <input
-                    type="text"
-                    value={interest}
-                    onChange={(e) => setInterest(e.target.value)}
-                    placeholder="Misal: teknologi"
-                    className="input-field border-transparent bg-[#f8f9fc] focus:bg-white font-medium text-slate-700"
-                  />
-                </div>
+                  <input type="file" className="hidden" accept=".pdf" onChange={(e) => setFile(e.target.files[0])} />
+                </label>
               </div>
 
-              <button
-                type="submit"
-                className="w-full btn-primary py-5 rounded-2xl text-lg group"
-              >
-                Cari Jalur Karier Saya
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
+              {/* Interest Section - Mandatory */}
+              <div className="space-y-4">
+                <label className="block text-sm font-bold text-slate-900">
+                  Apa Minat atau Impian Kariermu?
+                </label>
+                <input
+                  type="text"
+                  value={interest}
+                  onChange={(e) => setInterest(e.target.value)}
+                  placeholder="Contoh: Digital Marketing, Software Engineer, UI/UX Designer..."
+                  className="w-full px-6 py-5 bg-[#f8f9fc] border-2 border-transparent rounded-[1.5rem] focus:bg-white focus:border-primary outline-none transition-all font-medium text-slate-700 text-lg shadow-sm"
+                  required
+                />
+                <p className="text-xs text-slate-400 font-medium pl-2">
+                  *AI akan mencocokkan isi CV Anda dengan minat ini.
+                </p>
+              </div>
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  className="w-full btn-primary py-5 rounded-[1.5rem] text-xl font-bold group shadow-lg shadow-primary/20"
+                >
+                  Analisis Karier Saya
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform ml-2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
             </form>
           </div>
         </div>
