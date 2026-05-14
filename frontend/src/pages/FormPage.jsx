@@ -22,7 +22,7 @@ const FormPage = () => {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-surface-bg flex flex-col">
+    <div className="min-h-screen overflow-x-hidden bg-surface-bg flex flex-col">
       <Header showNav={false} />
       
       <main className="flex-1 flex items-center justify-center p-6 pb-12">

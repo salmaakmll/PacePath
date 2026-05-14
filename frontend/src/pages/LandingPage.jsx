@@ -6,7 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen overflow-hidden bg-surface-bg flex flex-col">
+    <div className="min-h-screen overflow-x-hidden bg-surface-bg flex flex-col">
       <Header />
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-6 flex flex-col justify-center items-center text-center relative">
@@ -22,14 +22,14 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <h1 className="text-5xl md:text-[5.5rem] font-black text-slate-900 mb-8 leading-[1.05] tracking-tight relative z-10">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-black text-slate-900 mb-8 leading-[1.05] tracking-tight relative z-10">
           Temukan Jalur Karier <br />
           <span className="text-[#2563EB]">
             Terbaikmu
           </span> dengan AI
         </h1>
 
-        <p className="text-xl text-slate-500 max-w-2xl mb-12 leading-relaxed font-medium">
+        <p className="text-lg md:text-xl text-slate-500 max-w-2xl mb-12 leading-relaxed font-medium">
           PacePath membantu mahasiswa & fresh graduate Indonesia mencocokkan keahlian mereka dengan pekerjaan impian. Cepat, tepat, dan gratis.
         </p>
 
