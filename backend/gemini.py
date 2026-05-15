@@ -19,7 +19,7 @@ def get_career_recommendation(skills: list[str], experience: str, interest: str)
         
     # Menggunakan nama model yang lebih standar: gemini-1.5-flash
     model = genai.GenerativeModel(
-        model_name="gemini-2.5-flash",
+        model_name="gemini-3.1-flash-lite-preview",
         generation_config=generation_config
     )
     
